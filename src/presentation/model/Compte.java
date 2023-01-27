@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compte implements AffichageInfos {
-    private static long          compteur = 1;
+    public static long          compteur = 1;
     private String          numeroCompte;
     private Double          solde;
     private LocalDateTime   dateCreation;
     private Client propriétaire;
     private List<Log>       logs = new ArrayList<>();
     public void setDateCreation() { this.dateCreation = LocalDateTime.now(); }
+    public void setDateCreation2(LocalDateTime date){ this.dateCreation=date;}
     public void setPropriétaire(Client propriétaire) {
         this.propriétaire = propriétaire;
     }
@@ -25,6 +26,7 @@ public class Compte implements AffichageInfos {
         Log log = new Log(LocalDate.now(), LocalTime.now(), type, msg);
         logs.add(log);
     }
+    public void setId2(String numeroCompte){this.numeroCompte=numeroCompte;}
     public Client getPropriétaire() {
         return propriétaire;
     }
@@ -89,12 +91,28 @@ public class Compte implements AffichageInfos {
         }
 
     }
+    public Compte(Double solde, Client client, LocalDateTime dateCreated) {
+        if(solde>0) {
+            setNumeroCompte();
+            this.solde = solde;
+            this.dateCreation = dateCreated;
+            this.propriétaire=client;
+        }
+        else{
+            System.out.println("Solde est negative ");
+            return;
+        }
+
+    }
+
     @Override
     public String toString() {
         String      compteStr  = "";
         compteStr += "| N° de Compte            : "   + getNumeroCompte()   + "\n";
         compteStr += "| Solde du Compte         : "   + getSolde()    + " Dh\n" ;
-       // compteStr += "| Propriétaire du Compte  : "   + getPropriétaire().getNomComplet() + "\n" ;
+        compteStr +=" | ID Client               : "   +getPropriétaire().getId()+"\n";
+        compteStr +=" | Date de creation        : "   +getDateCreation()+"\n";
+     //   compteStr += "| Propriétaire du Compte  : "   + getPropriétaire().getNomComplet() + "\n" ;
         compteStr += "------------------------------------------------------\n";
         return compteStr;
     }
@@ -116,15 +134,12 @@ public class Compte implements AffichageInfos {
 
     @Override
     public void afficherInformations() {
-     System.out.println( "| N° de Compte            : "   + getNumeroCompte()   + "\n"+
-                         "| Solde du Compte         : "   + getSolde()    + " Dh\n" +
-                         "| Propriétaire du Compte  : \n"   + getPropriétaire().toString() + "\n" +
-                         "------------------------------------------------------\n");
+ System.out.println(toString());
     }
 
     @Override
     public void afficherInformationsDétaillées() {
-     afficherBref();
+    // afficherBref();
      afficherInformations();
      afficherLesLogs();
     }

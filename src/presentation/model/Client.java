@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 
-public class Client extends Utilisateur {
+public class Client extends Utilisateur implements AffichageInfos {
     private String email, cin, tel;
     private Sexe sexe;
     private List<Compte> comptesClient;
@@ -46,7 +46,6 @@ public class Client extends Utilisateur {
     }
 
     public Client(){
-
         comptesClient = new ArrayList<>();
     }
 
@@ -71,6 +70,19 @@ public class Client extends Utilisateur {
         setSexe(sexe);
         comptesClient = new ArrayList<Compte>();
     }
+    public Client(Long id,String login, String pass, String n, String p, String mail, String cin, String tel, Sexe sexe) {
+       // super(login, pass, "Client");
+        setId2(id);
+        setNom(n);
+        setPrenom(p);
+        setTel(tel);
+        setEmail(mail);
+        setCin(cin);
+        setSexe(sexe);
+        setLogin(login);
+        setMotDePasse(pass);
+        comptesClient = new ArrayList<Compte>();
+    }
     public static String valEmail(String input) {
         if (input == null || input.isEmpty()) {
             return "Invalid";
@@ -87,16 +99,19 @@ public class Client extends Utilisateur {
     public void Ajouter(Compte e){
         this.comptesClient.add(e);
     }
-    public String afficherCompte(){
-        for (Compte c:comptesClient) {
-            return c.toString();
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Utilisateur)
+            return this.getLogin().equals(((Utilisateur) o).getLogin()) && this.getMotDePasse().equals(((Utilisateur) o).getMotDePasse()) ;
+        else {
+            return false;
         }
-        return comptesClient.toString();
     }
+
     @Override
     public String toString() {
         String      clientStr  = "------------------------------------------------------\n";
-        clientStr += afficherCompte();
         clientStr += "| Identifiant du Client     : "   + this.id        + "\n";
         clientStr += "| Nom Complet               : "   + this.getNomComplet() + "\n" ;
         clientStr += "| Adresse email             : "   + this.email     + "\n" ;
@@ -105,16 +120,36 @@ public class Client extends Utilisateur {
         clientStr += "------------------------------------------------------\n";
         return clientStr;
     }
-   /*     public static void main(String[] args) {
-        Compte e=new Compte(300.0);
-        Compte e1=new Compte(300.0);
-        Client client=new Client("aaaa","aaa","aaaaa","aaaa","aaaaa","aaa","aaa",Sexe.HOMME);
-        client.Ajouter(e);
-        Client client2=new Client("zzzz","zzzzzz","rrrrr","rrrrr","rrrrr","ttt","tttt",Sexe.HOMME);
-        client2.Ajouter(e1);
-        System.out.println(client.toString());
-        System.out.println(client2.toString());
-    }*/
+    @Override
+    public void afficherBref() {
+        String      clientStr  = "------------------------------------------------------\n";
+        clientStr += "| Identifiant du Client     : "   + this.id        + "\n";
+        clientStr += "| Nom Complet               : "   + this.getNomComplet() + "\n" ;
+        System.out.println(clientStr);
+        System.out.println("-------------------------------------------------------------------");
+    }
+    @Override
+    public void afficherLesLogs() {
+        for (Compte c:comptesClient) {
+             c.afficherLesLogs();
+        }
+    }
+
+    @Override
+    public void afficherInformations() {
+        System.out.println("-------------------------------------------------------------------");
+        System.out.println(toString());
+        for (Compte c:comptesClient) {c.afficherBref();}
+        System.out.println("-------------------------------------------------------------------");
+
+    }
+
+    @Override
+    public void afficherInformationsDétaillées() {
+        afficherLesLogs();
+        afficherInformations();
+    }
+
 
 
 }

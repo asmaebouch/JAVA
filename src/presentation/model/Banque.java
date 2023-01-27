@@ -1,10 +1,12 @@
 package presentation.model;
 
+import metier.Verifiable;
+
 import java.util.*;
 
-public class Banque {
+public class Banque implements AffichageInfos{
 
-    private static long          compteur = 1;
+    public static long          compteur = 1;
     private Long                 idBanque;
     private String              nomBanque;
     private String              adresseBanque;
@@ -62,9 +64,10 @@ public class Banque {
     public void             setClientsDeBanque(List<Client> clientsDeBanque) {
         this.clientsDeBanque = clientsDeBanque;
     }
-    public void  add(Client client){
+    public void  ajouter(Client client){
     clientsDeBanque.add(client);
 }
+
 
     @Override
     public String toString() {
@@ -76,23 +79,39 @@ public class Banque {
                 ", \nClients De Banque= \n" + clientsDeBanque + "\n"+
                 '}';
     }
-  /*  public void afficherclient(){
+
+    @Override
+    public void afficherBref() {
+        System.out.println("Nom de la banque : "+nomBanque+
+                           " { Id  banque=" + idBanque+" }");
+    }
+
+    @Override
+    public void afficherLesLogs() {
+        for (Client client:clientsDeBanque) {
+            client.afficherLesLogs();
+        }
+    }
+
+    @Override
+    public void afficherInformations() {
+        System.out.println(toString());
+        for (Client client:clientsDeBanque) {
+            client.afficherInformations();
+        }
+    }
+
+    @Override
+    public void afficherInformationsDétaillées() {
+        afficherInformations();
+        afficherLesLogs();
+    }
+
+
+    /*  public void afficherclient(){
         for (Client client:clientsDeBanque) {
             System.out.println(client.toString());
         }
     }*/
 
-    public static void main(String[] args) {
-        Banque banque=new Banque("alakhdar","aaaaa","aaaaa","aaaaaa");
-            Compte e=new Compte(300.0);
-            Compte e1=new Compte(300.0);
-            Client client=new Client("aaaa","aaa","aaaaa","aaaa","aaaaa","aaa","aaa",Sexe.HOMME);
-            client.Ajouter(e);
-            Client client2=new Client("zzzz","zzzzzz","rrrrr","rrrrr","rrrrr","ttt","tttt",Sexe.HOMME);
-            client2.Ajouter(e1);
-            banque.add(client);
-            banque.add(client2);
-            System.out.println(banque.toString());
-
-    }
 }

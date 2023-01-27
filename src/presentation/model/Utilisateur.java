@@ -4,7 +4,7 @@ package presentation.model;
 import java.util.Objects;
 
 public class Utilisateur {
-    protected static long compteur = 1;
+    public static long compteur = 1;
     protected Long id;
     protected String prenom, nom;
     protected String login, motDePasse, role;
@@ -13,9 +13,11 @@ public class Utilisateur {
     public Long         getId() {
         return id;
     }
-    public void         setId() {
+    public void         setId(Long id) {
         this.id = compteur++;
     }
+    public long getCompteur(){return compteur;}
+    public void setId2(Long id){this.id=id;}
     public String       getNomComplet() {
         return prenom + " " + nom;
     }
@@ -53,15 +55,18 @@ public class Utilisateur {
         this.role = role;
     }
 
-    public  Utilisateur(){setId();}
+    public  Utilisateur(){setId(id);}
 
     public  Utilisateur(String login, String pass, String role){
-        setId();
+        setId(id);
         this.login          = login;
         this.motDePasse     = pass;
         this.role           = role;
     }
+    public boolean isValid(String lg, String pass) {
 
+        return login.equals(lg) && motDePasse.equals(pass);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

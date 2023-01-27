@@ -9,7 +9,7 @@ public interface IServiceClient {
 
     boolean retrait  (int choixRetrait);
     boolean virement ();
-    boolean modifierProfile(int choixModification);
+    boolean modifierProfile(String choixModification);
     void dernièresOpérations();
     Double afficherSolde();
     Compte choisirCompte();

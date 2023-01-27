@@ -23,7 +23,7 @@ public interface IServiceAdmin {
     List<Compte>    chercherCompteParDateCreation();
     List<Compte>    chercherCompteParPropriétaire();
 
-    Client          modifierClient();
+     Client modifierClient(String choix);
     boolean         supprimerClient();
 
     TableauDeBord calculerEtAfficherStatistiques();

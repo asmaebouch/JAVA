@@ -26,7 +26,7 @@ public class ServiceAdmin implements IServiceAdmin {
         String cin = clavier.next();
         System.out.println("Entrer le telephone : ");
         String tel = clavier.next();
-        System.out.println("Entrer le sexe FAMME/HOMME: ");
+        System.out.println("Entrer le sexe FEMME/HOMME: ");
         Sexe sexe = Sexe.valueOf(clavier.next());
         System.out.println("Entrer l'email : ");
         String email = clavier.next();
@@ -55,7 +55,7 @@ public class ServiceAdmin implements IServiceAdmin {
       /*  if(banque.getClientsDeBanque().contains(Co)){
             System.err.println("Ajout de client n°"+Co.getId()+" a echoué, un client avec le même contenue existe déjà dans la collection");}
        */
-        banque.add(Co);
+        banque.ajouter(Co);
 
         System.out.println(Co.toString());
         System.out.println("Au revoir !!!!!!!!");
@@ -101,7 +101,7 @@ public class ServiceAdmin implements IServiceAdmin {
                     c = j;
                     break;
                 } else {
-              break;
+                    break;
                 }
             }
         }
@@ -123,8 +123,8 @@ public class ServiceAdmin implements IServiceAdmin {
                 System.out.println("Invalid input please answer a int  value!");
             }
         }
-            for (Client j : banque.getClientsDeBanque()) {
-                for(;;) {
+        for (Client j : banque.getClientsDeBanque()) {
+            for(;;) {
                 if (j.getId().equals(idClient)) {
                     System.out.println("exist client");
                     System.out.println(j.toString());
@@ -137,7 +137,7 @@ public class ServiceAdmin implements IServiceAdmin {
             }
 
         }
-            return client;
+        return client;
     }
     @Override
     public List<Client> chercherClientParNom() {
@@ -230,7 +230,7 @@ public class ServiceAdmin implements IServiceAdmin {
                     break;
                 } else {
 
-                  break;
+                    break;
                 }
             }
         }
@@ -400,9 +400,9 @@ public class ServiceAdmin implements IServiceAdmin {
     }
 
     @Override
-    public Client modifierClient() {
+    public Client modifierClient(String choix) {
         System.out.println(" -------Modify Client ----------- : ");
-        String choix;
+       ;
         Client clie = new Client();
         Scanner clavier = new Scanner(System.in);
         Long idClient;
@@ -486,46 +486,46 @@ public class ServiceAdmin implements IServiceAdmin {
 
     @Override
     public TableauDeBord calculerEtAfficherStatistiques() {
-       TableauDeBord T=new TableauDeBord();
+        TableauDeBord T=new TableauDeBord();
         Double maxValue = Double.valueOf(0);
         for (Client j : banque.getClientsDeBanque()) {
             for (Compte c : j.getComptesClient()) {
-              //  long n = c.getCompteur()-1;
-               // System.out.println(n);
-                    if (c.getSolde() > maxValue) {
-                        maxValue=c.getSolde();
-                        T.setMaxSolde(c.getSolde());
-                        //System.out.println(T.getMaxSolde());
+                //  long n = c.getCompteur()-1;
+                // System.out.println(n);
+                if (c.getSolde() > maxValue) {
+                    maxValue=c.getSolde();
+                    T.setMaxSolde(c.getSolde());
+                    //System.out.println(T.getMaxSolde());
                 }
             }
         }
         Double minValue =maxValue ;
-                for (Client j : banque.getClientsDeBanque()) {
-                    for (Compte c : j.getComptesClient()) {
-                            if (c.getSolde() < minValue) {
-                                minValue=c.getSolde();
-                                T.setMinSolde(c.getSolde());
-                                System.out.println("Le solde minimal " + T.getMinSolde());
-                            }
-                          T.setNombreTotaleCompte(c.getCompteur()-1);
-                        }
-                    }
-                System.out.println("=> Le nombre total de compte :"+T.getNombreTotaleCompte());
-                System.out.println("=> Le solde maximaL :" + T.getMaxSolde());
-                System.out.println("=> Le solde minimal : " + T.getMinSolde());
-                T.setNombreTotaleClient(Long.valueOf(banque.getClientsDeBanque().size()));
-                System.out.println("=> Le Nombre total de client :"+T.getNombreTotaleClient());
+        for (Client j : banque.getClientsDeBanque()) {
+            for (Compte c : j.getComptesClient()) {
+                if (c.getSolde() < minValue) {
+                    minValue=c.getSolde();
+                    T.setMinSolde(c.getSolde());
+                    System.out.println("Le solde minimal " + T.getMinSolde());
+                }
+                T.setNombreTotaleCompte(c.getCompteur()-1);
+            }
+        }
+        System.out.println("=> Le nombre total de compte :"+T.getNombreTotaleCompte());
+        System.out.println("=> Le solde maximaL :" + T.getMaxSolde());
+        System.out.println("=> Le solde minimal : " + T.getMinSolde());
+        T.setNombreTotaleClient(Long.valueOf(banque.getClientsDeBanque().size()));
+        System.out.println("=> Le Nombre total de client :"+T.getNombreTotaleClient());
         return T;
     }
 
     @Override
     public List<Client> trierClientParNom() {
         List<Client> clients = new ArrayList<>(banque.getClientsDeBanque());
-  //(banque.getClientsDeBanque().sort((cd1, cd2) -> cd1.getNom().compareTo(cd2.getNom()))));
+        //(banque.getClientsDeBanque().sort((cd1, cd2) -> cd1.getNom().compareTo(cd2.getNom()))));
 
         Collections.sort(clients, (cd1, cd2) -> cd1.getNom().compareTo(cd2.getNom()));
         clients.forEach(client -> System.out.println("=> " + client));
-                return clients;
+        return clients;
     }
 
     @Override
@@ -564,7 +564,7 @@ public class ServiceAdmin implements IServiceAdmin {
         List<Client> clients = new ArrayList<>(banque.getClientsDeBanque());
         List<Compte> comptes = new ArrayList<>();
         for (Client j : banque.getClientsDeBanque()) {
-             comptes = j.getComptesClient();
+            comptes = j.getComptesClient();
             //(banque.getClientsDeBanque().sort((cd1, cd2) -> cd1.getNom().compareTo(cd2.getNom()))));
             Collections.sort(comptes, (cd1, cd2) -> cd1.getSolde().compareTo(cd2.getSolde()));
             comptes.forEach(client -> System.out.println("=> " + client));
@@ -580,17 +580,6 @@ public class ServiceAdmin implements IServiceAdmin {
     @Override
     public List<Compte> trierComptesParNomPropriétaire() {
         return null;
-    }
-    public static void main(String[] args) {
-        Banque banque1=new Banque("aaaa","aaaa","aaaa","aaaa");
-        ServiceAdmin s=new ServiceAdmin(banque1);
-        s.nouveauClient();
-        s.nouveauClient();
-        s.nouveauCompteClientExistant();
-        s.nouveauCompteClientExistant();
-     s.calculerEtAfficherStatistiques();
-        s.chercherClientParId();
-        s.chercherClientParId();
     }
 }
 

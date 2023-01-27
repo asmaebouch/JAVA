@@ -9,6 +9,10 @@ import java.util.Scanner;
 
 public class ServiceClient implements IServiceClient{
     Banque banque=new Banque();
+    ServiceClient(){}
+    public ServiceClient(Banque banque1){
+        this.banque=banque1;
+    }
     @Override
     public boolean versement() {
         Scanner clavie = new Scanner(System.in);
@@ -141,51 +145,50 @@ public class ServiceClient implements IServiceClient{
     }
 
     @Override
-    public boolean modifierProfile(int choixModification) {
+    public boolean modifierProfile(String choixModification) {
         System.out.println(" -------Modify Client ----------- : ");
         String choix;
         Client clie = new Client();
         Scanner clavier = new Scanner(System.in);
-        Long idClient;
-        while (true) {
-            System.out.println("Donnez l'id de compte ");
-            try {
-                idClient = Long.valueOf((clavier.next()));
-                break;
-            } catch (NumberFormatException ignore) {
-                System.out.println("Invalid input please answer a int  value!");
-            }
-        }
-        System.out.println("vous voulez Modifier le nom/prenom/email? ");
         choix = clavier.next();
+        label:
         for (Client j : banque.getClientsDeBanque()) {
-            if (j.getId().equals(idClient)) {
-                if (choix.equals("nom")) {
-                    System.out.println("Vous pouvez donner le nouveaux nom");
-                    String nom = clavier.next();
-                    j.setNom(nom);
-                    System.out.println(j.toString());
-                    break;
-                } else if (choix.equals("prenom")) {
-                    System.out.println("Vous pouvez donner le nouveaux prenom");
-                    String prenom = clavier.next();
-                    j.setPrenom(prenom);
-                    System.out.println(j.toString());
-                    break;
-                } else if (choix.equals("email")) {
-                    System.out.println("Vous pouvez donner le nouveaux email ");
-                    String email = clavier.next();
-                    j.setEmail(email);
-                    System.out.println(j.toString());
-                    break;
+                switch (choix) {
+                    case "nom":
+                        System.out.println("Vous pouvez donner le nouveaux nom");
+                        String nom = clavier.next();
+                        j.setNom(nom);
+                        System.out.println(j.toString());
+                        break label;
+                    case "prenom":
+                        System.out.println("Vous pouvez donner le nouveaux prenom");
+                        String prenom = clavier.next();
+                        j.setPrenom(prenom);
+                        System.out.println(j.toString());
+                        break label;
+                    case "email":
+                        System.out.println("Vous pouvez donner le nouveaux email ");
+                        String email = clavier.next();
+                        j.setEmail(email);
+                        System.out.println(j.toString());
+                        break label;
+                    case "cin":
+                        System.out.println("Vous pouvez donner le nouveaux cin ");
+                        String cin=clavier.next();
+                        j.setCin(cin);
+                        System.out.println(j.toString());
+                        break label;
+                    case "tel":
+                        System.out.println("Vous pouvez donner le nouveaux telephone");
+                        String tel=clavier.next();
+                        j.setTel(tel);
+                        System.out.println(j.toString());
+                        break label;
                 }
                 clie = j;
                 // System.out.println("exist client");
                 System.out.println(j.toString());
                 break;
-
-            }
-
         }
         System.out.println("Au revoir !!!!!!!!");
         return true;

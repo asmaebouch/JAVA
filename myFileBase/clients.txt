@@ -1,0 +1,2 @@
+id			Nom			Prenom			login			password			email							cin				tel				sex
+1			asmae			bouche			asmae			1234			azeee			asmae.bouch@gmail.com	0788986			FEMME			

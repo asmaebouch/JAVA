@@ -1,4 +1,4 @@
-package vue.palette;
+package Vue.palette;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

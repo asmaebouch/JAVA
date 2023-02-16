@@ -8,13 +8,16 @@ public class MyFrame extends JFrame {
     Container container;
     TablePanel tablePanel;
     SearchPanel  searchPanel;
+    FrameDashbord frameDashbord;
     public MyFrame(String title){
         initContainer();
         setTitle(title);
         setLocation(0,0);
-        setSize(screenSize.width,screenSize.height-90);
+        setSize(screenSize.width-500,screenSize.height-500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setVisible(true);
         setVisible(true);
+        setResizable(false);
     }
     public void initContainer(){
         initPanels();

@@ -19,11 +19,9 @@ public class ClientDao2 implements Idao<Client,Long> {
     public List<Client> findall() {
         Utilisateur.compteur = 1    ;
         List<Client> clients = new ArrayList<>();
-
         try {
             List<String> lines = Files.readAllLines(FileBasePaths.CLIENT_TABLE, StandardCharsets.UTF_8);
             lines.remove(0);
-
             if (!lines.isEmpty()) {
                 clients = lines.stream().map(line -> {
                     Client cl ;

@@ -1,5 +1,7 @@
 package vue.palette;
 
+import Vue.palette.TablePanel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -35,6 +37,7 @@ public class TableCrudPanel extends JPanel {
         add(btn_edit);
         add(btn_remove);
     }
+
 
 
 }

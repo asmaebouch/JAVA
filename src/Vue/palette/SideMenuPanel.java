@@ -1,4 +1,4 @@
-package vue.palette;
+package Vue.palette;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -28,7 +28,7 @@ public class SideMenuPanel extends JPanel {
 
             JButton btn = new JButton(nameOfButton);
             btn.setFont(new Font("Optima", Font.BOLD, 18));
-            btn.setForeground(Color.BLUE);
+            btn.setForeground(Color.PINK);
             btn.setHorizontalAlignment(JButton.CENTER);
             btn.setPreferredSize(new Dimension(150, 50));
             btn.setMaximumSize(new Dimension(150, 50));
@@ -57,4 +57,6 @@ public class SideMenuPanel extends JPanel {
 
         setVisible(false);
     }
+
+
 }

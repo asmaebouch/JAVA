@@ -1,12 +1,44 @@
 package Vue;
 
+import Vue.palette.FrameDashbord;
+import Vue.palette.MyFrame;
+import metier.Verifiable;
+import presentation.model.Admin;
+import presentation.model.Banque;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.concurrent.LinkedBlockingDeque;
 
+
 public class LoginView extends JFrame {
+    Verifiable v = new Verifiable() {
+        @Override
+        public Admin isAdmin(String lg, String pass, Banque bq) {
+            Admin admin = Admin.getInstance();
+            if (admin.isValid(lg, pass)) {
+                return admin;
+            } else {
+                return null;
+            }
+        }
+    };
+    Verifiable v2 = new Verifiable() {
+        @Override
+        public boolean isClient(String lg, String pass , Banque bq){
+            return bq.getClientsDeBanque().stream()
+                    .anyMatch(client -> client.getLogin().equals(lg) && client.getMotDePasse().equals(pass));
+        }
+
+    };
+
+    private static Banque bg=new Banque();
+    Admin admin = new Admin();
+
     Container mainContainer;
     private JPanel titlePanel,formPanel,buttonsPanel;
     private JLabel lbl_title , lbl_login,lbl_pass;
@@ -14,6 +46,8 @@ public class LoginView extends JFrame {
     private JButton btn_Cancel;
     private JTextField txt_login;
     private JPasswordField txt_pass;
+
+
     private void initButton(){
         //initialisation le button login
         btn_Login=new JButton("se connecter");
@@ -21,6 +55,29 @@ public class LoginView extends JFrame {
         btn_Login.setFont((new Font("optima",Font.BOLD,17)));
         btn_Login.setForeground(new Color(105,59,105,255));
         btn_Login.setHorizontalAlignment(JButton.CENTER);
+        btn_Login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String login =txt_login.getText().toString();
+                String password=txt_pass.getText().toString();
+               // clientSpecial.setCin(cin);
+               if (v.isAdmin(login, password, bg) != null && v.isAdmin(login, password, bg).isValid(login, password)) {
+                    System.out.println("admin");
+                    FrameDashbord f = new FrameDashbord();
+                    f.show();
+                   setVisible(false);
+               }
+
+                else if (v2.isClient(login,password,bg)) {
+
+                   System.out.println("client");
+                } else {
+
+                    System.out.println("erreur");
+                }
+
+            }
+        });
         //ajouter une icone
         // lbl_title.setIcon(new ImageIcon())
         //initialisation le button login
@@ -76,6 +133,7 @@ public class LoginView extends JFrame {
 
 
     }
+
     private void initPanels(){
         //panneau titre
         initLabel();
@@ -115,7 +173,7 @@ public class LoginView extends JFrame {
         centerPanel.add(txt_pass);
         formPanel.add(westPanel,BorderLayout.WEST);
         formPanel.add(centerPanel,BorderLayout.CENTER);
-
+       // centerPanel.add(c2);
         initButton();
         buttonsPanel=new JPanel();
         //changer la couleur du fond
@@ -127,6 +185,7 @@ public class LoginView extends JFrame {
         //ajouter le titre au centre
         buttonsPanel.add(btn_Login);
         buttonsPanel.add(btn_Cancel);
+
 
 
     }
@@ -144,9 +203,12 @@ private void initContainer(){
     mainContainer.setLayout(new BorderLayout());
     //initialiser ajouter les panneaux au bordes correspondants
     initPanels();
+
     mainContainer.add(titlePanel, BorderLayout.NORTH);
     mainContainer.add(formPanel,BorderLayout.CENTER);
     mainContainer.add(buttonsPanel,BorderLayout.SOUTH);
+
+    //mainContainer.add(c2,BorderLayout.CENTER);
 }
    public LoginView(String title){
     //initialisation du conteneur principale

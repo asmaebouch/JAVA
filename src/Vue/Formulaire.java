@@ -415,8 +415,6 @@ public class Formulaire extends JFrame {
             buttonsPanel.add(btn_Ajouter);
         }
 
-        public static void main (String[]args){
-            new Formulaire("Formulaire");
-        }
+
 
 }

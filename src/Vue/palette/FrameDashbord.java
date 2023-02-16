@@ -34,7 +34,7 @@ public class FrameDashbord extends JFrame{
 
      formulaire =new MyFrame("My app");
      formulaire1=new Formulaire("formulaire");
-    fofof=new hhhh();
+
     JPanel paneMenu=new JPanel();
     paneMenu.setBackground(new Color(105, 59, 105, 255));
     paneMenu.setBounds(0,0,249,418);
@@ -170,7 +170,7 @@ public class FrameDashbord extends JFrame{
     lblIconHome5.setBounds(20,0,40,40);
     lblIconHome5.setIcon(new ImageIcon(img_logo6));
     panemodifier5.add(lblIconHome5);
-
+    this.setVisible(true);
     JPanel paneMainContent = new JPanel();
     paneMainContent.addMouseListener(new PanelButtonMouseAdapter(paneMainContent));
     paneMainContent.setBounds(259,11,938,396);
@@ -180,8 +180,8 @@ public class FrameDashbord extends JFrame{
     //formulaire.getContentPane().add(paneMainContent);
     paneMainContent.add(formulaire.tablePanel);
      menuClicked(formulaire);
+     formulaire.setVisible(false);
 
-    this.setVisible(true);
 }
     public void menuClicked(JFrame panel){
      formulaire.setVisible(false);
@@ -216,8 +216,5 @@ public class FrameDashbord extends JFrame{
         }
     }
 
-    public static void main(String[] args) {
-        new FrameDashbord();
 
-    }
 }
